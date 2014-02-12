@@ -3,7 +3,8 @@
 packagename=$1
 srcdir=$2
 dist=$3
-srcversion=$4
+changelogmsg=$4
+srcversion=$5
 
 # Prepare version information and names
 if [ "$srcversion" == "" ]; then
@@ -23,7 +24,7 @@ tar cjf ../$archfile --exclude-vcs --exclude-backups --exclude=debian .
 cd ..
 
 #prepare debian package
-archdir="$packagename-$srcversion"
+archdir="$packagename-$srcversion-$dist"
 cp -r origsrc $archdir
 cp -r "$opwd/$packagename/debian" $archdir
 
@@ -31,9 +32,5 @@ cd $archdir
 debchange -i -p "$changelogmsg" -D "$dist"
 debuild -S -sa
 
-#dput -f ppa:markobarko/ethereum "${packagename}_${srcversion}_source.changes"
-
-echo Cleaning up...
-#rm -rf $PREPDIR
-
-echo Done.
+finalversion=`dpkg-parsechangelog | sed -n 's/^Version: //p'`
+dput -f ppa:markobarko/ethereum "../${packagename}_${finalversion}_source.changes"
