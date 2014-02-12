@@ -1,0 +1,38 @@
+Source: libcryptoppeth
+Priority: extra
+Maintainer: Ethereum (Ethereum Project) <ethereum@gavwood.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Section: libs
+Homepage: http://www.cryptopp.com
+#Vcs-Git: git://git.debian.org/collab-maint/cryptopp.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/cryptopp.git;a=summary
+
+Package: libcryptoppeth-dev
+Section: libdevel
+Architecture: any
+Depends: libcryptoppeth (= ${binary:Version})
+Description: Crypto++ Library is a free C++ class library of cryptographic schemes.
+ Other features include:
+ pseudo random number generators (PRNG): ANSI X9.17 appendix C, RandomPool
+ password based key derivation functions: PBKDF1 and PBKDF2 from PKCS #5, 
+ Shamir's secret sharing scheme and Rabin's information dispersal algorithm (IDA)
+ fast multi-precision integer (bignum) and polynomial operations
+ finite field arithmetics, including GF(p) and GF(2^n)
+ prime number generation and verification
+ useful non-cryptographic algorithms
+
+Package: libcryptoppeth
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Crypto++ Library is a free C++ class library of cryptographic schemes.
+ Other features include:
+ pseudo random number generators (PRNG): ANSI X9.17 appendix C, RandomPool
+ password based key derivation functions: PBKDF1 and PBKDF2 from PKCS #5, 
+ Shamir's secret sharing scheme and Rabin's information dispersal algorithm (IDA)
+ fast multi-precision integer (bignum) and polynomial operations
+ finite field arithmetics, including GF(p) and GF(2^n)
+ prime number generation and verification
+ useful non-cryptographic algorithms
+ DEFLATE (RFC 1951) compression/decompression with gzip (RFC 1952) and zl
