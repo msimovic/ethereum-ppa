@@ -29,7 +29,7 @@ cp -r origsrc $archdir
 cp -r "$opwd/$packagename/debian" $archdir
 
 cd $archdir
-debchange -i -p "$changelogmsg" -D "$dist"
+debchange -v "$srcversion" -p "$changelogmsg" -D "$dist"
 debuild -S -sa
 
 finalversion=`dpkg-parsechangelog | sed -n 's/^Version: //p'`
