@@ -41,7 +41,7 @@ cd $PREPDIR
 
 #prepare orig archive 
 archfile="${packagename}_${srcversion}.orig.tar.bz2"
-archdir="$packagename-$version-$dist"
+archdir="$packagename-$version"
 
 if [ -f $opwd/$packagename/$archfile ]; then
 	echo "Using existing $archfile..."
