@@ -17,6 +17,7 @@ if [ "$version" == "" ]; then
 fi
 
 srcversion=${version%-*}
+version=$version~${dist}1
 
 echo "Package Name: $packagename"
 echo "Source Directory: $srcdir"
@@ -39,15 +40,27 @@ opwd=`pwd`
 cd $PREPDIR
 
 #prepare orig archive 
-cp -r $srcdir origsrc
-cd origsrc
-
 archfile="${packagename}_${srcversion}.orig.tar.bz2"
-tar cjf ../$archfile --exclude-vcs --exclude-backups --exclude=debian .
-cd ..
+archdir="$packagename-$version-$dist"
+
+if [ -f $opwd/$packagename/$archfile ]; then
+	echo "Using existing $archfile..."
+	cp $opwd/$packagename/$archfile .
+
+	mkdir origsrc
+	tar xjf $archfile -C origsrc
+else
+	echo "Creating $archfile..."
+	cp -r $srcdir origsrc
+	cd origsrc
+
+	tar cjf ../$archfile --exclude-vcs --exclude-backups --exclude=debian .
+	cd ..
+
+	cp $archfile $opwd/$packagename
+fi
 
 #prepare debian package
-archdir="$packagename-$version-$dist"
 cp -r origsrc $archdir
 cp -r "$opwd/$packagename/debian" $archdir
 
