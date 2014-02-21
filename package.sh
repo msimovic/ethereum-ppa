@@ -4,18 +4,26 @@ packagename=$1
 srcdir=$2
 dist=$3
 changelogmsg=$4
-srcversion=$5
+version=$5
 repo=$6
 
 if [ "$repo" == "" ]; then
 	repo="markobarko/ethereum"
 fi
 
+# Prepare version information and names
+if [ "$version" == "" ]; then
+	version="$(date +%Y%m%d)"
+fi
+
+srcversion=${version%-*}
+
 echo "Package Name: $packagename"
 echo "Source Directory: $srcdir"
 echo "Distribution: $dist"
 echo "Change Log Message: $changelogmsg"
 echo "Source Version: $srcversion"
+echo "Package Version: $version"
 echo "Target PPA: $repo"
 
 echo "Are these settings correct?"
@@ -25,11 +33,6 @@ select yn in "Yes" "No"; do
         No ) exit;;
     esac
 done
-
-# Prepare version information and names
-if [ "$srcversion" == "" ]; then
-	srcversion="$(date +%Y%m%d)"
-fi
 
 PREPDIR=`mktemp -d`
 opwd=`pwd`
@@ -44,12 +47,12 @@ tar cjf ../$archfile --exclude-vcs --exclude-backups --exclude=debian .
 cd ..
 
 #prepare debian package
-archdir="$packagename-$srcversion-$dist"
+archdir="$packagename-$version-$dist"
 cp -r origsrc $archdir
 cp -r "$opwd/$packagename/debian" $archdir
 
 cd $archdir
-debchange -v "$srcversion" -p "$changelogmsg" -D "$dist"
+debchange -v "$version" -p "$changelogmsg" -D "$dist"
 debuild -S -sa
 
 finalversion=`dpkg-parsechangelog | sed -n 's/^Version: //p'`
