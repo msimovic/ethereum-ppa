@@ -23,7 +23,7 @@ Description: The command line daemon
 Package: libethereum
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libgmp-dev, libgmp3-dev, libcryptoppeth, libboost-filesystem (>= 1.53), libboost-mpi (>= 1.53), libboost-thread (>= 1.53), libleveldb-dev, libminiupnpc-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, libgmp-dev, libgmp3-dev, libcryptoppeth, libboost-filesystem-dev (>= 1.53), libboost-mpi-dev (>= 1.53), libboost-thread-dev (>= 1.53), libleveldb-dev, libminiupnpc-dev
 Description: The future of computational social contracts.
  A long description of libethereum.
 
